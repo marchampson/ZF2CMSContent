@@ -1,0 +1,23 @@
+<span id="namespace" value="<?php echo $this->namespace; ?>"></span>
+
+<table class="table">
+	<tbody id="pageList">
+		<tr>
+		    <th>Name</th>
+		    <th>Title</th>
+			<th>Actions</th>
+		</tr>
+        <?php foreach ($categories as $category) : ?>
+        <tr>
+            <td><?php echo $this->escapeHtml($category->name);?></td>
+            <td><?php echo $this->escapeHtml($category->title);?></td>
+            <td>
+                <a href="<?php echo $this->url('category',
+                    array('action'=>'edit', 'id' => $category->id));?>">Edit</a>
+                <a href="<?php echo $this->url('category',
+                    array('action'=>'delete', 'id' => $category->id));?>">Delete</a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

@@ -1,0 +1,128 @@
+$darkGrey : #333333;
+$lightGrey : #F5F5F5;
+$white : #FFFFFF;
+$blue : #08c;
+
+//Mixin example remember keywords
+
+@mixin border-radius($radius: 5px) {
+    -mox-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+.clearfix {
+    zoom:1;
+    &:before, &:after {
+        content: "\0020";
+        display: block;
+        height: 0;
+        overflow: hidden;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+.box{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.left{float:left;}
+.right{float:right;}
+.show{display:block;}
+.hide{display:none;}
+.minH{
+    min-height:200px;
+}
+
+h1, h2, h3, h4{
+    font-weight:normal;
+    text-transform: uppercase;
+}
+
+h1 {
+    color: $darkGrey;
+}
+h2 { 
+    color: lighten($darkGrey, 20%);
+}
+h3 {
+    color: lighten($darkGrey, 30%);
+}
+h4 {
+    color: lighten($darkGrey, 40%);
+}
+
+ul{
+    list-style: none;
+}
+
+body{
+    background: $lightGrey;
+
+    .header{
+        .navbar{@extend .hide;}
+    }
+
+    .container{
+
+       width: 300px;
+
+        .content{
+            background-color: $white;
+            padding: 20px;
+            margin: 70px -20px; 
+            @include border-radius(10px);
+
+            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+            box-shadow: 0 1px 2px rgba(0,0,0,.15);
+
+
+            .login-form {
+                width:220px;
+                margin:auto;
+
+                h2{
+                    margin-top:0;
+                    font-size: 30px;
+                    height: 34px;
+                    line-height: 34px;
+
+                    img{
+                        vertical-align: top;
+                    }
+                }
+
+                legend {
+                    //margin-right: -50px;
+                    font-weight: bold;
+                    color: #404040;
+                }
+
+                label{
+                    span{
+                        @extend .show;
+                    }
+                }
+                
+                .btn{
+                    margin-bottom:10px;
+                     @extend .right;
+                }
+
+            }
+        }
+
+    }
+
+    footer{
+        @extend .hide;
+    }
+
+}

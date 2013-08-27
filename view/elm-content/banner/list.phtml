@@ -1,0 +1,1411 @@
+<link rel="stylesheet" type="text/css" href="<?php echo $this->basePath() . '/modules/elm-content/css/bootstrap.min.css' ?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->basePath() . '/modules/elm-content/css/list-e3.css' ?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->basePath() . '/modules/elm-content/css/font-awesome.min.css' ?>"/>
+<section class="mainContent">
+    <div class="listHeader">
+        <div class="inner span11">
+            <script id="listHeader-template" type="text/x-handlebars-template">
+                <div class="btn-group">
+                    <a href="{{url}}" class="btn btn-success">{{text}}</a>
+                    <a href="{{url}}" class="btn btn-success"><i class="icon-plus"></i></a>
+                </div>
+            </script>
+        </div>
+    </div>
+    <div id="listContainer" class="span11">
+        <script id="list-template" type="text/x-handlebars-template">
+            {{> accordion}}
+        </script>
+    </div>
+</section>
+
+<script id="heading-partial" type="text/x-handlebars-template">
+    {{#heading heading}}{{/heading}}
+</script>
+<script id="accordion-partial" type="text/x-handlebars-template">
+    <div class="accordion">
+    {{#each this}}
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion{{rowId}}" href="#collapse{{rowId}}">
+              <div class="pageItem row" data-pageId="{{rowId}}"><div class="span1">{{#if sortableList}}<i class="icon icon-plus"></i>{{/if}}</div>{{> heading}}</div>
+            </a>
+          </div>
+          {{#if sortableList}}
+          <div id="collapse{{rowId}}" class="accordion-body collapse" style="height: 0px; ">
+            <div class="accordion-inner">
+              <ul class="sortableList">
+                {{> sortable}}
+              </ul>
+            </div>
+          </div>
+          {{/if}}
+        </div>
+        {{/each}}
+    </div>
+</script>
+<script id="sortable-partial" type="text/x-handlebars-template">
+    {{#each sortableList}}
+        <li><div class="subPageItem row"><div class="span1"><i class="icon icon-chevron-right"></i></div>{{> heading}}</div></li>
+    {{/each}}
+</script>
+<!--script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script-->
+<script type="text/javascript" src="<?php echo $this->basePath() . '/modules/elm-content/js/bootstrap.min.js' ?>"></script>
+<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+<script src="<?php echo $this->basePath() . '/modules/elm-content/js/handlebars.js' ?>"></script> 
+<script type="text/javascript" src="<?php echo $this->basePath() . '/modules/elm-content/tmpl/templates.js' ?>"></script>
+<script>
+     (function($) {
+
+    	var bData = <?php echo $this->bData?>;
+
+        var data = <?php echo $this->data ?>;
+        /*
+        data = [
+        {
+            "rowId": 1,
+            "heading": [
+                {
+                    "value": "Hello World 1",
+                    "type": "string",
+                    "span": 3
+                },
+                {
+                    "value": "true",
+                    "type": "button",
+                    "span": 1
+                },
+                {
+                    "value": "Live",
+                    "type": "select",
+                    "span": 3,
+                    "options": [
+                        "Draft",
+                        "Live",
+                        "Private"
+                    ]
+                },
+                {
+                    "type": "actions",
+                    "span": 3,
+                    "actions": [
+                        {
+                            "url": "/elements/content/item/edit/webpage/176",
+                            "type": "btn-warning edit",
+                            "text": "Edit"
+                        },
+                        {
+                            "url": "/elements/content/item/clone/webpage/176",
+                            "type": "clone",
+                            "text": "Clone"
+                        },
+                        {
+                            "url": "/elements/content/item/confirm-delete/webpage/176",
+                            "type": "btn-danger delete",
+                            "text": "Delete"
+                        }
+                    ]
+                }
+            ],
+            "sortableList": [
+                {
+                    "rowId": 1,
+                    "heading": [
+                        {
+                            "value": "Hello World 1",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 2,
+                    "heading": [
+                        {
+                            "value": "Hello World 2",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 3,
+                    "heading": [
+                        {
+                            "value": "Hello World 3",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 4,
+                    "heading": [
+                        {
+                            "value": "Hello World 4",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 5,
+                    "heading": [
+                        {
+                            "value": "Hello World 5",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 6,
+                    "heading": [
+                        {
+                            "value": "Hello World 6",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 7,
+                    "heading": [
+                        {
+                            "value": "Hello World 7",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rowId": 2,
+            "heading": [
+                {
+                    "value": "Hello World 2",
+                    "type": "string",
+                    "span": 3
+                },
+                {
+                    "value": "true",
+                    "type": "button",
+                    "span": 1
+                },
+                {
+                    "value": "Live",
+                    "type": "select",
+                    "span": 3,
+                    "options": [
+                        "Draft",
+                        "Live",
+                        "Private"
+                    ]
+                },
+                {
+                    "type": "actions",
+                    "span": 3,
+                    "actions": [
+                        {
+                            "url": "/elements/content/item/edit/webpage/176",
+                            "type": "btn-warning edit",
+                            "text": "Edit"
+                        },
+                        {
+                            "url": "/elements/content/item/clone/webpage/176",
+                            "type": "clone",
+                            "text": "Clone"
+                        },
+                        {
+                            "url": "/elements/content/item/confirm-delete/webpage/176",
+                            "type": "btn-danger delete",
+                            "text": "Delete"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rowId": 3,
+            "heading": [
+                {
+                    "value": "Hello World 3",
+                    "type": "string",
+                    "span": 3
+                },
+                {
+                    "value": "true",
+                    "type": "button",
+                    "span": 1
+                },
+                {
+                    "value": "Live",
+                    "type": "select",
+                    "span": 3,
+                    "options": [
+                        "Draft",
+                        "Live",
+                        "Private"
+                    ]
+                },
+                {
+                    "type": "actions",
+                    "span": 3,
+                    "actions": [
+                        {
+                            "url": "/elements/content/item/edit/webpage/176",
+                            "type": "btn-warning edit",
+                            "text": "Edit"
+                        },
+                        {
+                            "url": "/elements/content/item/clone/webpage/176",
+                            "type": "clone",
+                            "text": "Clone"
+                        },
+                        {
+                            "url": "/elements/content/item/confirm-delete/webpage/176",
+                            "type": "btn-danger delete",
+                            "text": "Delete"
+                        }
+                    ]
+                }
+            ],
+            "sortableList": [
+                {
+                    "rowId": 1,
+                    "heading": [
+                        {
+                            "value": "Hello World 1",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 2,
+                    "heading": [
+                        {
+                            "value": "Hello World 2",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 3,
+                    "heading": [
+                        {
+                            "value": "Hello World 3",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 4,
+                    "heading": [
+                        {
+                            "value": "Hello World 4",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 5,
+                    "heading": [
+                        {
+                            "value": "Hello World 5",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 6,
+                    "heading": [
+                        {
+                            "value": "Hello World 6",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 7,
+                    "heading": [
+                        {
+                            "value": "Hello World 7",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rowId": 4,
+            "heading": [
+                {
+                    "value": "Hello World 4",
+                    "type": "string",
+                    "span": 3
+                },
+                {
+                    "value": "true",
+                    "type": "button",
+                    "span": 1
+                },
+                {
+                    "value": "Live",
+                    "type": "select",
+                    "span": 3,
+                    "options": [
+                        "Draft",
+                        "Live",
+                        "Private"
+                    ]
+                },
+                {
+                    "type": "actions",
+                    "span": 3,
+                    "actions": [
+                        {
+                            "url": "/elements/content/item/edit/webpage/176",
+                            "type": "btn-warning edit",
+                            "text": "Edit"
+                        },
+                        {
+                            "url": "/elements/content/item/clone/webpage/176",
+                            "type": "clone",
+                            "text": "Clone"
+                        },
+                        {
+                            "url": "/elements/content/item/confirm-delete/webpage/176",
+                            "type": "btn-danger delete",
+                            "text": "Delete"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rowId": 5,
+            "heading": [
+                {
+                    "value": "Hello World 5",
+                    "type": "string",
+                    "span": 3
+                },
+                {
+                    "value": "true",
+                    "type": "button",
+                    "span": 1
+                },
+                {
+                    "value": "Live",
+                    "type": "select",
+                    "span": 3,
+                    "options": [
+                        "Draft",
+                        "Live",
+                        "Private"
+                    ]
+                },
+                {
+                    "type": "actions",
+                    "span": 3,
+                    "actions": [
+                        {
+                            "url": "/elements/content/item/edit/webpage/176",
+                            "type": "btn-warning edit",
+                            "text": "Edit"
+                        },
+                        {
+                            "url": "/elements/content/item/clone/webpage/176",
+                            "type": "clone",
+                            "text": "Clone"
+                        },
+                        {
+                            "url": "/elements/content/item/confirm-delete/webpage/176",
+                            "type": "btn-danger delete",
+                            "text": "Delete"
+                        }
+                    ]
+                }
+            ],
+            "sortableList": [
+                {
+                    "rowId": 1,
+                    "heading": [
+                        {
+                            "value": "Hello World 1",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 2,
+                    "heading": [
+                        {
+                            "value": "Hello World 2",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 3,
+                    "heading": [
+                        {
+                            "value": "Hello World 3",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 4,
+                    "heading": [
+                        {
+                            "value": "Hello World 4",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 5,
+                    "heading": [
+                        {
+                            "value": "Hello World 5",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 6,
+                    "heading": [
+                        {
+                            "value": "Hello World 6",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rowId": 7,
+                    "heading": [
+                        {
+                            "value": "Hello World 7",
+                            "type": "string",
+                            "span": 3
+                        },
+                        {
+                            "value": "true",
+                            "type": "button",
+                            "span": 1
+                        },
+                        {
+                            "value": "Live",
+                            "type": "select",
+                            "span": 3,
+                            "options": [
+                                "Draft",
+                                "Live",
+                                "Private"
+                            ]
+                        },
+                        {
+                            "type": "actions",
+                            "span": 3,
+                            "actions": [
+                                {
+                                    "url": "/elements/content/item/edit/webpage/176",
+                                    "type": "btn-warning edit",
+                                    "text": "Edit"
+                                },
+                                {
+                                    "url": "/elements/content/item/clone/webpage/176",
+                                    "type": "clone",
+                                    "text": "Clone"
+                                },
+                                {
+                                    "url": "/elements/content/item/confirm-delete/webpage/176",
+                                    "type": "btn-danger delete",
+                                    "text": "Delete"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+        */
+        var isSortable = false;
+
+        if(Array.isArray( data )){
+            isSortable = data[0].hasOwnProperty( 'sortableList' );
+        }else{
+            isSortable = data.hasOwnProperty( 'sortableList' );
+        }
+
+
+        Handlebars.registerHelper('heading', function(item, options){
+            var heading = '';
+            $.each(item, function(key, value) {
+                 switch(value["type"]){
+                    case "string":
+                        heading += '<div class="title span' + value["span"] + '">' + value["value"] + '</div>';
+                        break;
+                    case "button":
+                        heading += '<div class="span'+ value["span"] +'">' + featuredCell(value) + '</div>';
+                        break;
+                     case "select":
+                        heading +=  '<div class="span'+ value["span"] +'">' + statusCell(value) + '</div>';
+                        break;
+                     case "actions":
+                        heading += '<div class="' + value["type"] + ' span' + value["span"] + '">' + actionsCell(value.actions) + '</div>';
+                        break;
+                 }
+            });
+
+            return heading
+        });
+
+        Handlebars.registerPartial("heading", $("#heading-partial").html());
+        Handlebars.registerPartial("accordion", $("#accordion-partial").html());
+        Handlebars.registerPartial("sortable", $("#sortable-partial").html());
+
+        var template = Handlebars.compile($("#listHeader-template").html()),
+            template2 = Handlebars.compile($("#list-template").html());
+
+        
+        $(".listHeader .inner").html( template(bData) );
+        $("#listContainer").html( template2(data) );
+
+        //Must be called after template is built
+        $( ".accordion, .sortableList" ).sortable({placeholder: "ui-state-highlight"});
+        $( ".accordion, .sortableList" ).disableSelection();
+
+        //PERHAPS IN OWN EVENTS FUNCTION
+        $(".actions").on('click', 'button', function(e){
+            e.stopPropagation();
+            var url = $(this).data("href");
+            window.location = url;
+        });
+        
+
+    }(jQuery));
+
+    function getNewPos(type){
+
+        var listArr = [];
+
+        if(type == "child"){
+            $(".sortableList").each(function(i, val){
+                var newArr = $.makeArray($(this).find("li"));
+                (i == 0) ? listArr = newArr :  $.merge(listArr, newArr);
+            });
+        }else{
+            $(".pageItem").each(function(i, val){
+                var newArr = $.makeArray($(this));
+                (i == 0) ? listArr = newArr :  $.merge(listArr, newArr);
+            });
+        }
+
+        return jQuery.map(listArr, function(n, i){
+            return $(n).data("rowid");
+        });
+
+    }
+
+    function featuredCell(item){
+        var featured = $('<button>').data("activated", item.value);
+        var icon = $('<icon>', {"class": "icon-white"});
+
+        if(Boolean(item.value)){
+            featured.addClass('btn btn-success');
+            icon.addClass("icon-ok");
+
+        }else{
+            featured.addClass('btn btn-danger');
+            icon.addClass("icon-remove");
+        }
+
+        featured.append(icon);
+
+        return $('<div>').append(featured.clone()).html(); 
+    }
+
+    function statusCell(item){
+        var select = $('<select>', {
+            "name":"status",
+            "class":"pageStatus"
+
+        }).data("val", item.value);
+
+        for(var i=0, l=item.options.length; i<l; i++) {
+            var option = $("<option>",{
+                "value": item.options[i],
+                "text": item.options[i]
+            });
+
+            if(item.options[i] == item.value){
+                option.attr('selected', 'selected');
+            }
+
+            select.append(option);
+        }
+
+        return $('<div>').append(select.clone()).html(); 
+    }
+
+    function actionsCell(items){
+        var btns = '';
+            
+        for(var i=0, l=items.length; i<l; i++) {
+
+                var icon = '';
+
+            switch(items[i].text.toLowerCase()){
+                case 'edit': 
+                    icon = '<i class="icon icon-edit"></i>';
+                    break;
+                case 'clone': 
+                    icon = '<i class="icon icon-copy"></i>';
+                    break;
+                case 'delete': 
+                    icon = '<i class="icon icon-trash"></i>';
+                    break;
+            }
+
+            btns += '<button data-href="'+ items[i].url + '" class="btn '+ items[i].type  +'">' + icon + '</button>';
+        }
+       return btns;
+    }
+</script>

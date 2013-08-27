@@ -1,0 +1,265 @@
+.clearfix, body .container .mainContent {
+  zoom: 1; }
+  .clearfix:before, body .container .mainContent:before, .clearfix:after, body .container .mainContent:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    overflow: hidden; }
+  .clearfix:after, body .container .mainContent:after {
+    clear: both; }
+
+.box, body .container .listHeader.stuck, body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div:first-child, body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div:first-child {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.left, body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.status.select .dropdown, body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.status.select .featured, body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div.status.select .dropdown, body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div.status.select .featured {
+  float: left; }
+
+.right, body .container .listHeader .btn-group {
+  float: right; }
+
+.show {
+  display: block; }
+
+.hide {
+  display: none; }
+
+.minH {
+  min-height: 200px; }
+
+h1, h2, h3, h4 {
+  font-weight: normal;
+  text-transform: uppercase; }
+
+h1 {
+  color: #333333; }
+
+h2 {
+  color: #666666; }
+
+h3 {
+  color: gray; }
+
+h4 {
+  color: #999999; }
+
+ul {
+  list-style: none; }
+
+body .container {
+  /*width:100%;
+  max-width:1008px;*/ }
+  @media (min-width: 1200px) {
+    body .container .listHeader.stuck {
+      width: 1170px; } }
+  @media (min-width: 980px) and (max-width: 1199px) {
+    body .container .listHeader.stuck {
+      width: 940px; } }
+  @media (min-width: 768px) and (max-width: 979px) {
+    body .container .listHeader {
+      margin-top: 0px !important; }
+      body .container .listHeader.stuck {
+        position: relative !important;
+        top: 0px !important; } }
+  @media (max-width: 767px) {
+    body .container .listHeader {
+      margin-top: 0px !important; }
+      body .container .listHeader.stuck {
+        position: relative !important;
+        top: 0px !important; } }
+  body .container .listHeader {
+    position: relative;
+    padding: 10px;
+    margin-top: 60px;
+    height: 30px;
+    z-index: 10;
+    background-color: #fff;
+    -mox-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -ms-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065); }
+    body .container .listHeader div[class*="span"] {
+      line-height: 30px;
+      height: 30px;
+      text-transform: uppercase;
+      font-size: 14px; }
+    body .container .listHeader.stuck {
+      margin-top: 0 !important;
+      position: fixed;
+      top: 45px;
+      height: 50px; }
+    body .container .listHeader .btn-group {
+      text-transform: uppercase;
+      font-weight: normal; }
+  body .container .mainContent {
+    position: relative; }
+    @media (min-width: 1200px) {
+      body .container .mainContent {
+        margin-top: 20px; } }
+    @media (min-width: 980px) and (max-width: 1199px) {
+      body .container .mainContent {
+        margin-top: 20px; } }
+    @media (min-width: 768px) and (max-width: 979px) {
+      body .container .mainContent {
+        margin-top: 0px; } }
+    body .container .mainContent #listContainer {
+      padding: 10px;
+      background-color: #fff;
+      -mox-border-radius: 6px;
+      -webkit-border-radius: 6px;
+      -ms-border-radius: 6px;
+      border-radius: 6px;
+      -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+      -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065); }
+      body .container .mainContent #listContainer .listHead {
+        border-bottom: 1px solid #e5e5e5;
+        height: 30px;
+        margin-bottom: 5px; }
+        body .container .mainContent #listContainer .listHead [class*=span] {
+          line-height: 30px; }
+          body .container .mainContent #listContainer .listHead [class*=span].span2 {
+            margin-left: 0; }
+      body .container .mainContent #listContainer .table tbody tr td {
+        line-height: 30px; }
+        body .container .mainContent #listContainer .table tbody tr td.actions {
+          opacity: 0;
+          transition: opacity 1s;
+          -webkit-transition: opacity 1s;
+          /* Safari */
+          text-align: right; }
+      body .container .mainContent #listContainer .table tbody tr:first-child td {
+        border-top: none; }
+      body .container .mainContent #listContainer .table tbody tr:hover {
+        cursor: pointer;
+        background: white; }
+        body .container .mainContent #listContainer .table tbody tr:hover td {
+          background: white; }
+          body .container .mainContent #listContainer .table tbody tr:hover td.actions {
+            opacity: 1; }
+      body .container .mainContent #listContainer .accordion .accordion-group {
+        border: none;
+        margin-bottom: 0px;
+        /*&:last-child{
+            .accordion-heading{
+                border:none;
+            }
+        }*/ }
+        body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading {
+          border-bottom: 1px solid whitesmoke; }
+          body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle {
+            padding: 0px;
+            color: #333333; }
+            body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle:hover {
+              background: whitesmoke;
+              color: #333333; }
+            body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem {
+              position: relative; }
+              body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div {
+                position: relative;
+                padding: 5px 0px;
+                min-height: 30px; }
+                body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div div {
+                  padding: 0px; }
+                body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div:first-child {
+                  line-height: 30px;
+                  text-align: center; }
+                body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.title {
+                  font-weight: bold;
+                  line-height: 30px; }
+                  body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.title i {
+                    visibility: hidden; }
+                    body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.title i.active {
+                      visibility: visible; }
+                body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.status {
+                  line-height: 30px; }
+                  body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.status span i {
+                    color: #e5e5e5;
+                    margin-right: 10px; }
+                    body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.status span i.active {
+                      color: #51a351; }
+                  body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.status.select .dropdown {
+                    margin-left: 5px; }
+                body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.actions {
+                  text-align: right; }
+                body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.select {
+                  margin-bottom: 0;
+                  color: #333333; }
+                  body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.select .icon-ok {
+                    color: #51a351; }
+                  body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.select .icon-edit {
+                    color: #f89406; }
+                  body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.select .icon-lock {
+                    color: #333333; }
+                  body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.select ul li {
+                    text-align: left;
+                    padding: 0 10px;
+                    line-height: 2em; }
+                    body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div.select ul li:hover {
+                      background: whitesmoke; }
+                body .container .mainContent #listContainer .accordion .accordion-group .accordion-heading .accordion-toggle .pageItem div button {
+                  margin-right: 5px; }
+        body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner {
+          padding: 0;
+          border: none; }
+          body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList {
+            list-style-type: none;
+            margin: 0;
+            padding: 0; }
+            body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li {
+              line-height: 30px;
+              font-size: 14px; }
+              body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li:first-child {
+                border: none; }
+              body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li i {
+                width: auto; }
+              body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div {
+                position: relative;
+                padding: 5px 0px;
+                min-height: 30px; }
+                body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div div {
+                  padding: 0px; }
+                body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div:first-child {
+                  line-height: 30px;
+                  text-align: center; }
+                body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div.title {
+                  font-weight: normal;
+                  line-height: 30px; }
+                  body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div.title i {
+                    visibility: hidden; }
+                    body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div.title i.active {
+                      visibility: visible; }
+                body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div.status {
+                  line-height: 30px; }
+                  body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div.status span i {
+                    color: #e5e5e5;
+                    margin-right: 10px; }
+                    body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div.status span i.active {
+                      color: #51a351; }
+                  body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div.status.select .dropdown {
+                    margin-left: 5px; }
+                body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div.actions {
+                  text-align: right; }
+                body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div.select {
+                  margin-bottom: 0;
+                  color: #333333; }
+                  body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div.select .icon-ok {
+                    color: #51a351; }
+                  body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div.select .icon-edit {
+                    color: #f89406; }
+                  body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div.select ul li {
+                    text-align: left;
+                    padding: 0 10px;
+                    line-height: 2em; }
+                    body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div.select ul li:hover {
+                      background: whitesmoke; }
+                body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li .subPageItem div button {
+                  margin-right: 5px; }
+              body .container .mainContent #listContainer .accordion .accordion-group .accordion-body .accordion-inner .sortableList li.ui-state-highlight {
+                border: 1px solid #fcefa1;
+                background: #fbf9ee; }

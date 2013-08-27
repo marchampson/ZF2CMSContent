@@ -1,0 +1,34 @@
+{
+    "name": "marchampson/elm-content",
+    "description": "CMS module for E3",
+    "type": "module",
+    "keywords": [
+        ""
+    ],
+    "homepage": "https://github.com/marchampson/ElmContent.git",
+    "license": "Private",
+    "authors": [
+        {
+            "name": "Marc Hampson",
+            "email": "marc.hampson@oxygenate.net",
+            "homepage": "http://www.oxygenate.net",
+            "role": "Director"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "webino/webino-image-thumb": "1.*"
+
+    },
+    "suggest": {
+        "marchampson/elm-web": "Website render module for E3"
+    },
+    "autoload": {
+        "psr-0": {
+            "ElmContent": "src/"
+        },
+        "classmap": [
+            "Module.php"
+        ]
+    }
+}

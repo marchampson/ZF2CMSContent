@@ -1,0 +1,107 @@
+$darkGrey : #333333;
+$lightGrey : #F5F5F5;
+$red: #CC0000;
+$white : #FFFFFF;
+$blue : #08c;
+
+$embossOut: #222;
+$embossIn: #444;
+
+//Mixin example remember keywords
+
+@mixin border-radius($radius: 5px) {
+    -mox-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+.clearfix {
+    zoom:1;
+    &:before, &:after {
+        content: "\0020";
+        display: block;
+        height: 0;
+        overflow: hidden;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+.box{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.left{float:left;}
+.right{float:right;}
+.show{display:block;}
+.hide{display:none;}
+.minH{
+    min-height:200px;
+}
+
+h1, h2, h3, h4{
+    font-weight:normal;
+    text-transform: uppercase;
+}
+
+h1 {
+    color: $darkGrey;
+}
+h2 { 
+    color: lighten($darkGrey, 20%);
+}
+h3 {
+    color: lighten($darkGrey, 30%);
+}
+h4 {
+    color: lighten($darkGrey, 40%);
+}
+
+ul{
+    list-style: none;
+}
+
+body{
+
+    padding: 0;
+    background: $lightGrey;
+    overflow-x: hidden;
+   
+    
+    .header{
+        .navbar{
+            .container{
+                @media (max-width: 979px){
+                    width:95%;
+                }
+
+                a.brand{
+                    padding: 5px 20px 5px !important;
+                }
+
+                li>a{
+                    padding: 12px 15px 12px;
+                }
+
+                button{
+                    span.elements-icon{
+                        display:inline-block;
+                    }
+
+                    span.text{
+                        display:inline-block;
+                    }
+                }
+            }
+        } 
+    }
+
+    .mainContent{
+        
+    }
+}

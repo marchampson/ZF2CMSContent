@@ -1,0 +1,68 @@
+<?php
+$form = $this->form;
+$form->prepare();
+$fieldsets = $form->getFieldsetArray();
+$formLabel = $this->plugin('formLabel');
+?>
+<div class="wrapper">
+	<nav class="formNavigation">
+		<ul class="formNavigtionList">
+		    <?php
+		    foreach($fieldsets as $k => $v) {
+                echo '<li><a href="#'.strtolower($k).'">'.strtoupper($k).'</a></li>';
+            }
+            reset($fieldsets); 
+		    ?>
+		</ul>
+	</nav>
+    <section class="formContainer">
+    <?php 
+    echo $this->form()->openTag($form);
+    foreach($fieldsets as $fieldset => $fieldsetElements) {
+        echo '<fieldset id="'.strtolower((string) $fieldset).'">';
+        echo '<legend>'.strtoupper((string)$fieldset).'</legend>';
+        //$fieldSetElements = $form->get(strtolower($fieldset));
+        foreach($fieldsetElements as $fsElement) {
+            $element = $form->get($fsElement);
+            if(is_object($element)) { 
+                echo $formLabel->openTag() . $element->getLabel() . $formLabel->closeTag();
+                echo $this->formElement($element);
+                $options = $element->getOptions();
+                $description = (isset($options['description']) && $options['description'] != '') ? $options['description'] : '';
+                if(isset($options['wysiwyg']) && $options['wysiwyg'] == 1) {
+                    $this->QuCKEditor($element->getName(), array('Width' => "100%",
+                
+                            'Height' => "340",
+                            'Language' => 'gb',
+                            'Toolbar'=> array(
+                                    array('Source','Maximize'),
+                                    array('Templates','Styles','Format'),
+                                    array('Bold','Italic','Underline','Subscript','Superscript'),
+                                    array('NumberedList','BulletedList','Outdent','Indent'),
+                                    array('JustifyLeft','JustifyCenter','JustifyRight'),
+                                    array('Link','Unlink'),
+                                    array('Image','Table')
+                            )
+                    ));
+                }
+               echo '<p class="hint">' . $description . '</p>';
+               echo $this->formElementErrors($element);
+            }
+        }
+        echo '</fieldset>';
+    }
+    ?>
+    <div class="form-actions">
+		<div class="outer">
+			<div class="inner">
+				<input type="submit" name="cancel" class="btn btn-danger"
+					id="cancel" value="Cancel"> <input type="submit"
+					name="submit" class="btn btn-success" id="submit" value="Save">
+			</div>
+		</div>
+	</div>
+    <?php
+    echo $this->form()->closeTag($form);
+    echo '
+    </section>
+</div>';

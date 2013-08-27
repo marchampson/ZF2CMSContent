@@ -1,0 +1,467 @@
+$darkGrey : #333333;
+$midGrey : #E5E5E5;
+$lightGrey : #F5F5F5;
+$white : #FFFFFF;
+$blue : #08c;
+
+//Mixin example remember keywords
+
+@mixin border-radius($radius: 5px) {
+    -mox-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+.clearfix {
+    zoom:1;
+    &:before, &:after {
+        content: "\0020";
+        display: block;
+        height: 0;
+        overflow: hidden;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+.box{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.left{float:left;}
+.right{float:right;}
+.show{display:block;}
+.hide{display:none;}
+.minH{
+    min-height:200px;
+}
+
+h1, h2, h3, h4{
+    font-weight:normal;
+    text-transform: uppercase;
+}
+
+h1 {
+    color: $darkGrey;
+}
+h2 { 
+    color: lighten($darkGrey, 20%);
+}
+h3 {
+    color: lighten($darkGrey, 30%);
+}
+h4 {
+    color: lighten($darkGrey, 40%);
+}
+
+ul{
+    list-style: none;
+}
+
+body{
+
+    .container{
+
+        /*width:100%;
+        max-width:1008px;*/
+
+        .header{
+           
+        }
+
+        @media (min-width: 1200px) {
+            .listHeader{
+                &.stuck{
+                    width:1170px;
+                }
+            }
+        }
+
+        @media (min-width: 980px) and (max-width: 1199px) {
+            .listHeader{
+                &.stuck{
+                    width:940px;
+                }
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 979px) {
+            .listHeader{
+                margin-top:0px !important;
+                &.stuck{
+                    position:relative !important;
+                    top:0px !important;
+                }
+            }
+        }
+
+        @media (max-width: 767px) {
+            .listHeader{
+                margin-top:0px !important;
+                &.stuck{
+                    position:relative !important;
+                    top:0px !important;
+                }
+            }
+        }
+
+        .listHeader{
+            position:relative;
+            padding: 10px;
+            margin-top:60px;
+            height:30px;
+            z-index:10;
+           
+           background-color: #fff;
+            @include border-radius(6px);
+            -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+            -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+            box-shadow: 0 1px 4px rgba(0,0,0,.065);
+            
+            div[class*="span"]{
+                line-height: 30px;
+                height:30px;
+                text-transform: uppercase;
+                font-size: 14px;
+            }
+
+            &.stuck{
+                @extend .box;
+                margin-top: 0 !important;
+                position:fixed;
+                top:45px;
+                height:50px;
+            }
+            
+            .btn-group{
+                @extend .right;
+                text-transform: uppercase;
+                font-weight: normal;
+            }
+        }
+
+        .mainContent{
+            position:relative;
+            @extend .clearfix;
+            
+            @media (min-width: 1200px) {
+                margin-top: 20px;
+            }
+
+            @media (min-width: 980px) and (max-width: 1199px) {
+                margin-top: 20px;
+            }
+
+            @media (min-width: 768px) and (max-width: 979px) {
+                margin-top: 0px;
+            }
+
+            @media (max-width: 767px) {}
+            
+             
+            // PAGE LIST STYLES
+            #listContainer{
+                
+                padding:10px;
+                background-color: #fff;
+
+                @include border-radius(6px);
+                -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+                -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+                box-shadow: 0 1px 4px rgba(0,0,0,.065);
+
+                .listHead{
+                    border-bottom: 1px solid $midGrey;
+                    height: 30px;
+                    margin-bottom:5px;
+                    [class*=span]{
+                        line-height: 30px;
+                        &.span2{
+                            margin-left:0;
+                        }
+                    }
+
+                }
+
+                .table{
+                    tbody{
+                        tr{
+                            
+                            td{
+                                line-height: 30px;
+                                &.actions{
+                                    opacity:0;
+                                    transition: opacity 1s;
+                                    -webkit-transition: opacity 1s; /* Safari */
+                                    text-align: right;
+                                }
+                            }
+
+                            &:first-child{
+                                td{
+                                    border-top:none;
+                                }
+                            }
+
+                            &:hover{
+                                cursor:pointer;
+                                background:$white;
+                                td{
+                                    background:$white;
+                                    &.actions{
+                                        opacity:1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                //TABLE END
+                
+                .accordion{
+                    .accordion-group{
+                        border:none;
+                        margin-bottom: 0px;
+
+                        /*&:last-child{
+                            .accordion-heading{
+                                border:none;
+                            }
+                        }*/
+
+                        .accordion-heading{
+                            border-bottom: 1px solid $lightGrey;
+
+                            .accordion-toggle{
+                                padding: 0px;
+                                color:$darkGrey;
+                                &:hover{
+                                    background: $lightGrey;
+                                    color:$darkGrey;
+                                }
+                                .pageItem{
+                                    position:relative;
+                                    //display:table;
+                                    
+                                    div{
+                                        position:relative;
+                                        padding: 5px 0px;
+                                        min-height:30px;
+
+                                        div{
+                                            padding: 0px;
+                                        }
+                                        //display:table-cell;
+                                        &:first-child{
+                                            @extend .box;
+                                            line-height:30px;
+                                            text-align: center;
+                                        }
+
+                                        &.title{
+                                            font-weight:bold;
+                                            line-height:30px;
+                                            i{
+                                                visibility: hidden;
+                                                &.active{
+                                                    visibility: visible;
+                                                }
+                                            }
+                                        }
+
+                                        &.status{
+                                            line-height:30px;
+                                            span{
+                                                i{
+                                                    color:$midGrey;
+                                                    margin-right:10px;
+                                                    &.active{
+                                                        color:#51a351;
+                                                    }
+                                                }
+                                            }
+
+                                            &.select{
+                                                .dropdown{
+                                                    @extend .left;
+                                                    margin-left:5px;
+                                                }
+                                                .featured{
+                                                    @extend .left;
+                                                }
+                                            }
+                                        }
+                                        &.actions{
+                                            text-align: right;
+                                        }
+                                         &.select{
+                                            margin-bottom:0;
+                                            color:$darkGrey;
+
+                                            .icon-ok{
+                                                color:#51a351;
+                                            }
+
+                                            .icon-edit{
+                                                color:#f89406;
+                                            }
+
+                                            .icon-lock{
+                                                color:$darkGrey;
+                                            }
+
+                                            ul{
+                                                li{
+                                                    text-align: left;
+                                                    padding: 0 10px;
+                                                    line-height: 2em;
+                                                    &:hover{
+                                                        background:$lightGrey;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        button{
+                                            margin-right:5px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .accordion-body{
+                                //background:$lightGrey;
+                                .accordion-inner{
+                                    padding:0;
+                                    border:none;
+                                .sortableList { 
+                                    list-style-type: none;
+                                    margin: 0; padding: 0; 
+                                    //width: 100%; 
+
+                                    li { 
+                                        
+                                        line-height: 30px;
+                                        font-size: 14px;
+                                        //border-top: solid 1px $lightGrey;
+
+                                        
+                                        &:first-child{
+                                            border:none;
+                                        }
+
+                                        i{
+                                            width:auto;
+                                        }
+
+                                        .subPageItem{
+                                            //display:table;
+                                            div{
+                                                position:relative;
+                                                padding: 5px 0px;
+                                                min-height:30px;
+
+                                                div{
+                                                    padding: 0px;
+                                                }
+                                                &:first-child{
+                                                    @extend .box;
+                                                    line-height:30px;
+                                                    text-align: center;
+                                                    //padding-left: 15px;
+                                                }
+
+                                                &.title{
+                                                    font-weight:normal;
+                                                    line-height:30px;
+                                                    i{
+                                                        visibility: hidden;
+                                                        &.active{
+                                                            visibility: visible;
+                                                        }
+                                                    }
+                                                }
+
+                                                &.status{
+                                                    line-height:30px;
+                                                    span{
+                                                        i{
+                                                            color:$midGrey;
+                                                            margin-right:10px;
+                                                            &.active{
+                                                                color:#51a351;
+                                                            }
+                                                        }
+                                                    }
+
+                                                    &.select{
+                                                        .dropdown{
+                                                            @extend .left;
+                                                            margin-left:5px;
+                                                        }
+                                                        .featured{
+                                                            @extend .left;
+                                                        }
+                                                    }
+                                                }
+
+                                                &.actions{
+                                                    text-align: right;
+                                                }
+
+                                                &.select{
+                                                    margin-bottom:0;
+                                                    color:$darkGrey;
+
+                                                    .icon-ok{
+                                                        color:#51a351;
+                                                    }
+
+                                                    .icon-edit{
+                                                        color:#f89406;
+                                                    }
+
+                                                    ul{
+                                                        li{
+                                                            text-align: left;
+                                                            padding: 0 10px;
+                                                            line-height: 2em;
+                                                            &:hover{
+                                                                background:$lightGrey;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                button{
+                                                    margin-right:5px;
+                                                }
+                                            }
+                                        }
+
+                                        &.ui-state-highlight{
+                                            border: 1px solid #fcefa1;
+                                            background: #fbf9ee;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+
+        .footer{
+            
+        }
+
+    }
+
+}

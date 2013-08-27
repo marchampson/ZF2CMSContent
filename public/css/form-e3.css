@@ -1,0 +1,167 @@
+.clearfix, body .container .mainContent, body .container .mainContent .wrapper {
+  zoom: 1; }
+  .clearfix:before, body .container .mainContent:before, body .container .mainContent .wrapper:before, .clearfix:after, body .container .mainContent:after, body .container .mainContent .wrapper:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    overflow: hidden; }
+  .clearfix:after, body .container .mainContent:after, body .container .mainContent .wrapper:after {
+    clear: both; }
+
+.box, body .container .mainContent .wrapper .formNavigation, body .container .mainContent .wrapper .formContainer form fieldset, body .container .mainContent .wrapper .formContainer form fieldset input, body .container .mainContent .wrapper .formContainer form fieldset select, body .container .mainContent .wrapper .formContainer form fieldset textarea, body .container .mainContent .wrapper .formContainer form .form-actions {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.left {
+  float: left; }
+
+.right {
+  float: right; }
+
+.show {
+  display: block; }
+
+.hide, body .container .mainContent .wrapper .formContainer form fieldset .form-actions {
+  display: none; }
+
+.minH {
+  min-height: 200px; }
+
+h1, h2, h3, h4 {
+  font-weight: normal;
+  text-transform: uppercase; }
+
+h1 {
+  color: #333333; }
+
+h2 {
+  color: #666666; }
+
+h3 {
+  color: gray; }
+
+h4 {
+  color: #999999; }
+
+ul {
+  list-style: none; }
+
+body .container .mainContent .wrapper .formContainer form fieldset legend {
+    color: gray;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+}
+
+body {
+  padding: 60px 0; }
+  body .container .mainContent {
+    margin-top: 0px;
+    position: relative;
+    overflow: hidden; }
+    @media (min-width: 1200px) {
+      body .container .mainContent {
+        margin-top: 70px; } }
+    @media (min-width: 980px) and (max-width: 1199px) {
+      body .container .mainContent {
+        margin-top: 70px; } }
+    @media (min-width: 768px) and (max-width: 979px) {
+      body .container .mainContent {
+        margin-top: 0px; } }
+    @media (max-width: 767px) {
+      body .container .mainContent {
+        margin-top: 0px; }
+        body .container .mainContent .wrapper .formNavigation {
+          position: relative !important; } }
+    body .container .mainContent .wrapper {
+      position: relative; }
+      body .container .mainContent .wrapper .formNavigation {
+        position: fixed;
+        padding-left: 0;
+        margin-bottom: 20px; }
+        body .container .mainContent .wrapper .formNavigation ul {
+          padding: 0;
+          background-color: #fff;
+          -mox-border-radius: 6px;
+          -webkit-border-radius: 6px;
+          -ms-border-radius: 6px;
+          border-radius: 6px;
+          -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+          -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065); }
+          body .container .mainContent .wrapper .formNavigation ul li a {
+            display: block;
+            width: 190px 9;
+            margin: 0 0 -1px;
+            padding: 8px 14px;
+            border: 1px solid #e5e5e5; }
+            body .container .mainContent .wrapper .formNavigation ul li a .icon-chevron-right {
+              float: right;
+              margin-top: 2px;
+              margin-right: -6px;
+              opacity: .25; }
+          body .container .mainContent .wrapper .formNavigation ul li:first-child a {
+            -mox-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            -ms-border-radius: 6px;
+            border-radius: 6px; }
+          body .container .mainContent .wrapper .formNavigation ul li.active a, body .container .mainContent .wrapper .formNavigation ul li.active:hover a {
+            position: relative;
+            z-index: 2;
+            padding: 9px 15px;
+            border: 0;
+            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+            -webkit-box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.1), inset -1px 0 0 rgba(0, 0, 0, 0.1);
+            -moz-box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.1), inset -1px 0 0 rgba(0, 0, 0, 0.1);
+            box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.1), inset -1px 0 0 rgba(0, 0, 0, 0.1); }
+            body .container .mainContent .wrapper .formNavigation ul li.active a .icon-chevron-right, body .container .mainContent .wrapper .formNavigation ul li.active:hover a .icon-chevron-right {
+              background-image: url(../img/glyphicons-halflings-white.png);
+              opacity: 1; }
+      body .container .mainContent .wrapper .formContainer form {
+        margin: 0 0 210px 0; }
+        body .container .mainContent .wrapper .formContainer form fieldset {
+          width: 100%;
+          background: white;
+          padding: 20px;
+          margin-bottom: 20px;
+          -mox-border-radius: 10px;
+          -webkit-border-radius: 10px;
+          -ms-border-radius: 10px;
+          border-radius: 10px;
+          -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+          -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); }
+          body .container .mainContent .wrapper .formContainer form fieldset h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: solid 1px #e5e5e5; }
+          body .container .mainContent .wrapper .formContainer form fieldset input, body .container .mainContent .wrapper .formContainer form fieldset select, body .container .mainContent .wrapper .formContainer form fieldset textarea {
+            height: 30px;
+            width: 66%; }
+            body .container .mainContent .wrapper .formContainer form fieldset input[type="checkbox"], body .container .mainContent .wrapper .formContainer form fieldset select[type="checkbox"], body .container .mainContent .wrapper .formContainer form fieldset textarea[type="checkbox"] {
+              width: auto; }
+          body .container .mainContent .wrapper .formContainer form fieldset textarea {
+            height: 100px; }
+          body .container .mainContent .wrapper .formContainer form fieldset label {
+            color: gray; }
+            body .container .mainContent .wrapper .formContainer form fieldset label input {
+              width: auto;
+              margin: 0; }
+          body .container .mainContent .wrapper .formContainer form fieldset table {
+            width: 98%; }
+        body .container .mainContent .wrapper .formContainer form .form-actions {
+          position: fixed;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          margin: 0; }
+        
+        body .container .mainContent .wrapper .formContainer form .preview {
+            width: 30%;
+            height: 30%;
+        }

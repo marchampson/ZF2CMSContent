@@ -1,0 +1,172 @@
+<?php 
+// retrieve identity
+use Zend\Authentication\AuthenticationService;
+$authService = new AuthenticationService();
+if ($authService->hasIdentity()) {
+    $email = $authService->getIdentity()->email;
+} else {
+    $email = '';
+}
+$gravatar = '<span id="gravatar"><img src="'.$this->gravatar($email, "G", 25).'" width="25" height="25" /></span>';
+?>
+<!-- boostrap accordian with jquery ui sortable functionality -->
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle($this->translate('E3 - ' . $_SERVER['HTTP_HOST']))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/images/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/modules/elm-content/css/bootstrap-responsive.min.css')
+                        ->prependStylesheet($this->basePath() . '/modules/elm-content/css/nav-e3.css')
+                        ->prependStylesheet($this->basePath() . '/modules/elm-content/css/bootstrap.min.css')
+                        ->prependStylesheet($this->basePath() . '/modules/elm-content/css/form-e3.css')?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()->prependFile($this->basePath() . '/modules/elm-content/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                                      ->prependFile($this->basePath() . '/modules/elm-content/js/bootstrap.min.js')
+                                      ->prependFile($this->basePath() . '/modules/elm-content/js/jquery.min.js')
+        ?>
+
+    </head>
+    <body data-rendering="true">
+      <header class="header">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="#"><img src="<?php echo $this->basePath() . '/modules/elm-content/img/layout/icons/e3-icon.png'?>" alt="E3 Dashboard"></a>
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="elements-icon">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </span>
+              <span class="text">
+                Elements
+              </span>
+            </button>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <?php
+                  echo $this->ElementsNavigation(); 
+                ?>
+              </ul>
+              <ul class="nav pull-right">
+                <!--li><a href="#">helpdesk</a></li>
+                <li><a href="#">settings</a></li-->
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $gravatar; ?> <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/elements/login/change-password">Change password</a></li>
+                    <li><a href="/elements/logout">Logout</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <div class="container">
+	    <section class="mainContent">
+        <?php echo $this->content; ?>
+		</section>
+	</div>
+	
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    <script src="<?php echo $this->basePath() . '/modules/elm-content/js/bootstrap.min.js'?>"></script>
+    <script src="<?php echo $this->basePath() . '/modules/elm-content/js/waypoints.min.js'?>"></script>
+    <script>
+    (function($) {
+
+            $('.ui-sortable').sortable({
+
+              stop: function( event, ui ) {
+                   var type, url;
+
+                   url = '/elements/page/setimagepositionsfromlist';
+                 
+                   var posArr = getImagePositions();
+                   var pageId = $(this).find('.id').text();
+
+                   $.post(url, { 'positions': posArr, 'pageId':  pageId})
+                   .done(function(resp){
+                       if(resp[0] == false){
+                           $(".accordion, .ui-sortable" ).sortable("cancel");
+                       }
+                   })
+                   .fail(function(resp) {
+                       $(".accordion, .ui-sortable" ).sortable("cancel");
+                   });
+                }
+            });
+
+            $('.dropdown-toggle').dropdown();  
+
+            $('[data-toggle="tooltip"]').tooltip({
+              placement : 'right',
+              trigger : 'focus'
+            });
+
+            $(".formNavigtionList").on('click', 'a', function(e) {
+                 e.preventDefault();
+                 var parent = $(this).closest('li'),
+                     href = $(this).attr('href');
+
+                // $(".formNavigtionList li").removeClass('active');
+                // parent.addClass('active');
+
+                 $('html, body').animate({
+                     scrollTop: $(href).offset().top - 70
+                 }, 1000);
+            });
+
+            function getImagePositions() {
+                
+                var filesArr = [];
+
+                $("#imagelist tr").each(function()
+                {
+                    var id = $(this).find('.edit').text();
+                    if(id!='') {
+                        filesArr.push(
+                            id
+                        );
+                    }
+
+                    
+                });
+                
+                return filesArr;
+
+            }
+
+            //Set up waypoint functionality
+            $('fieldset').waypoint(function(direction) {
+                if (direction === 'down') {
+                    $('.formNavigtionList li').removeClass('active');
+                    $('.formNavigtionList a[href="#' + $(this).attr('id') + '"]').closest('li').addClass('active');
+                }
+            },{ offset: 70 }).waypoint(function(direction) {
+                if (direction === 'up') {
+                  $('.formNavigtionList li').removeClass('active');
+                  $('.formNavigtionList a[href="#' + $(this).attr('id') + '"]').closest('li').addClass('active');
+                }
+            },{ offset: function() {
+                    return -($(this).height() - 70);
+                        } 
+            });
+    }(jQuery));
+  </script>
+  </body>
+</html>

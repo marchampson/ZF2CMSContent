@@ -1,0 +1,87 @@
+<?php
+$form = $this->form;
+$form->prepare();
+$fieldsets = $form->getFieldsetArray();
+$formLabel = $this->plugin('formLabel');
+?>
+<div class="wrapper row">
+	<nav class="formNavigation span3">
+		<ul class="formNavigtionList nav nav-list bs-docs-sidenav">
+		    <?php
+            $count = 0;
+		    foreach($fieldsets as $k => $v) {
+                $activeClass = ($count == 0)? 'class="active"' : '';
+                echo '<li '.$activeClass.'><a href="#'.strtolower($k).'">'.strtoupper($k).' <i class="icon-chevron-right"></i></a></li>';
+
+                $count++;
+            }
+            reset($fieldsets); 
+		    ?>
+		</ul>
+	</nav>
+    <section class="formContainer offset3 span9">
+    <?php 
+    echo $this->form()->openTag($form);
+    foreach($fieldsets as $fieldset => $fieldsetElements) {
+        echo '<fieldset id="'.strtolower((string) $fieldset).'">';
+        echo '<h2>'.strtoupper((string)$fieldset).'</h2>';
+        //$fieldSetElements = $form->get(strtolower($fieldset));
+        foreach($fieldsetElements as $fsElement) {
+            $element = $form->get($fsElement);
+
+
+            if(is_object($element)) { 
+
+                $options = $element->getOptions();
+                $description = (isset($options['description']) && $options['description'] != '') ? $options['description'] : '';
+                if($description != ''){
+                    $element->setAttribute('title', $description);
+                    $element->setAttribute('data-toggle', 'tooltip');
+                }
+
+                echo $formLabel->openTag() . $element->getLabel() . $formLabel->closeTag();
+                echo $this->formElement($element);
+                
+                
+                if(isset($options['wysiwyg']) && $options['wysiwyg'] == 1) {
+                    $this->QuCKEditor($element->getName(), array('Width' => "100%",
+                
+                            'Height' => "340",
+                            'Language' => 'gb',
+                            'Toolbar'=> array(
+                                    array('Source','Maximize'),
+                                    array('Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'),
+                                    array('Format'),
+                                    array('Bold','Italic','Underline','TextColor','Subscript','Superscript'),
+                                    array('NumberedList','BulletedList','Outdent','Indent'),
+                                    array('JustifyLeft','JustifyCenter','JustifyRight'),
+                                    array('Link','Unlink'),
+                                    array('Image','Table')
+                            )
+                    ));
+                }
+               
+               
+               echo $this->formElementErrors($element);
+            }
+        }
+        echo '</fieldset>';
+    }
+    ?>
+    <div class="form-actions">
+        <div class="outer container">
+            <div class="inner offset3 span9">
+                <button type="submit" name="cancel"  class="btn" id="cancel">CANCEL</button>
+                <div class="btn-group">
+                    <button type="submit" name="submit" class="btn btn-success" id="submit">SAVE</button>
+                    <button type="submit" name="submit" class="btn btn-success" id="submit"><i class="icon-ok icon-white"></i></button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <?php
+    echo $this->form()->closeTag($form);
+    echo '
+    </section>
+</div>';

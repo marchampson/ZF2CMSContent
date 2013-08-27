@@ -1,0 +1,274 @@
+<link rel="stylesheet" type="text/css" href="<?php echo $this->basePath() . '/modules/elm-content/css/list-e3.css' ?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->basePath() . '/modules/elm-content/css/font-awesome.min.css' ?>"/>
+ <div class="listHeader sticky-element">
+      <div class="btn-group">
+          <a href="<?php echo $bData['url']; ?>" class="btn btn-success"><?php echo $bData['text']; ?></a>
+          <a href="<?php echo $bData['url']; ?>" class="btn btn-success"><i class="icon-plus"></i></a>
+      </div>
+</div>
+<section class="mainContent"> 
+    <div id="listContainer">
+      <div class="listHead">
+         <script id="header-template" type="text/x-handlebars-template">
+            {{#each this}}
+              <div class="span{{span}}"><span style="font-weight: bold;">{{text}}</span></div>
+            {{/each}}
+        </script>
+      </div>
+      <div class="listBody">
+        <script id="list-template" type="text/x-handlebars-template">
+            {{> accordion}}
+        </script>
+      </div>
+    </div> 
+</section>
+<script id="heading-partial" type="text/x-handlebars-template">
+            {{#if sortableList}}
+                {{#heading heading true}}{{/heading}}
+            {{else}}
+                {{#heading heading false}}{{/heading}}
+            {{/if}}
+    </script>
+    <script id="accordion-partial" type="text/x-handlebars-template">
+        <div class="accordion">
+        {{#each this}}
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion{{rowId}}" href="#collapse{{rowId}}">
+                  <div class="pageItem parent row" data-pageId="{{rowId}}">{{> heading}}</div>
+                </a>
+              </div>
+              {{#if sortableList}}
+              <div id="collapse{{rowId}}" class="accordion-body collapse" style="height: 0px; ">
+                <div class="accordion-inner">
+                  <ul class="sortableList">
+                    {{> sortable}}
+                  </ul>
+                </div>
+              </div>
+              {{/if}}
+            </div>
+            {{/each}}
+        </div>
+    </script>
+    <script id="sortable-partial" type="text/x-handlebars-template">
+        {{#each sortableList}}
+            <li {{#if sortableList}}style="height:auto"{{/if}}>
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion{{rowId}}" href="#collapse{{rowId}}">
+                      <div class="{{#if sortableList}}pageItem child{{else}}subPageItem{{/if}} row" data-pageId="{{rowId}}">{{> heading}}</div>
+                    </a>
+                  </div>
+                  {{#if sortableList}}
+                  <div id="collapse{{rowId}}" class="accordion-body collapse" style="height: 0px; ">
+                    <div class="accordion-inner">
+                      <ul class="sortableList">
+                        {{> sortable}}
+                      </ul>
+                    </div>
+                  </div>
+                  {{/if}}
+                </div>
+            </li>
+        {{/each}}
+    </script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <!--script type="text/javascript" src="<?php //echo $this->basePath() . '/modules/elm-content/js/bootstrap.min.js' ?>"></script-->
+    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    <script src="<?php echo $this->basePath() . '/modules/elm-content/js/handlebars.js' ?>"></script>
+    <script>
+        $(function() {
+            var data = {};
+                data.headers = [
+                  {'text':'Status','span':2},
+                  {'text':'Title','span':9}
+                ];
+                data.data = <?php echo $this->data; ?>;
+
+            
+            Handlebars.registerHelper('heading', function(item, hasSortable){
+                var heading = '';
+                var icon = (hasSortable) ? '<i class="icon active icon-caret-right"></i> ' : '<i class="icon icon-caret-right"></i> '
+                $.each(item, function(key, value) {
+                     switch(value["type"]){
+                        case "string":
+
+                            //Indents may go widely over
+                            var indent = (value["indent"]) ? value["indent"] : '';
+                                /*indent = (indent.length >= 216) ? '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;': indent;*/
+                            heading += '<div class="title span' + value["span"] + '">'+ indent + icon + value["value"] + '</div>';
+                            break;
+                        case "status":
+                            heading += '<div class="status span'+ value["span"] +'">' + featuredCell(value) + '</div>';
+                            break;
+                        case "state":
+                            heading += '<div class="status select span'+ value["span"] +'">' + statusCell(value.state[0]) + featuredCell(value.state[1]) + '</div>';
+                        case "select":
+                          heading +=  '<div class="hide select span'+ value["span"] +'">' + statusCell(value) + '</div>';
+                          break;
+                        case "actions":
+                          heading += '<div class="pull-right ' + value["type"] + ' span' + value["span"] + '">' + actionsCell(value.actions) + '</div>';
+                          break;
+                     }
+                });
+
+                return heading;
+            });
+
+            var template = Handlebars.compile($("#list-template").html());
+                headerTemplate = Handlebars.compile($("#header-template").html());
+            Handlebars.registerPartial("heading", $("#heading-partial").html());
+            Handlebars.registerPartial("accordion", $("#accordion-partial").html());
+            Handlebars.registerPartial("sortable", $("#sortable-partial").html());
+
+            $(".listBody").html( template(data.data) );
+            $(".listHead").html( headerTemplate(data.headers) );
+
+            //Must be called after template is built
+            $( ".accordion, .sortableList" ).sortable({placeholder: "ui-state-highlight"});
+            $( ".accordion, .sortableList" ).disableSelection();
+
+            //Set Status may be added to pagelist along with accompanying function
+            $('.select .dropdown .dropdown-menu').on('click','.selectItem', setPageStatus);
+
+            //Action Buttons set up
+            $('.actions').on('click', 'button', function(e){
+                e.stopPropagation();
+                window.location.href = $(this).data('href');
+            });
+            
+            // Drag and drop
+            $(".accordion, .ui-sortable" ).sortable({
+    			
+                placeholder: "ui-state-highlight",
+               
+                stop: function( event, ui ) {
+                   var type, url;
+
+                   url = '/elements/page/setpagepositionsfromlist';
+                 
+                   var posArr = getNewPos();
+                   $.post(url, { 'positions': posArr })
+                   .done(function(resp){
+                       if(resp[0] == false){
+                           $(".accordion, .ui-sortable" ).sortable("cancel");
+                       }
+                   })
+                   .fail(function(resp) {
+                       $(".accordion, .ui-sortable" ).sortable("cancel");
+                   });
+                }
+
+    		});
+    	 
+        });
+
+        function featuredCell(item){
+            var featured = $('<span>',{'class':'featured'}).data("activated", item.value);
+            var home = $('<i>', {"class": "icon icon-home", 'title':'Featured on Home page'});
+            var parent = $('<i>', {"class": "icon icon-user", 'title':'Featured on Parent page'});
+
+            if(item.value == 'both'){
+                home.addClass('active');
+                parent.addClass("active");
+            }else if(item.value == 'featured-home'){
+                home.addClass('active');
+            }else if(item.value == 'featured-parent'){
+                parent.addClass("active");
+            }
+
+            featured.append(home).append(parent);
+
+            return $('<div>').append(featured.clone()).html(); 
+        }
+
+        function statusCell(item){
+
+            var valObj = {'live':'icon-ok','draft':'icon-edit','private':'icon-lock'},
+                strArr = [
+                    '<div class="dropdown" data-toggle="tooltip" title="Choose Status">',
+                    '<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon '+ valObj[item.value] + '"></i></button>',
+                    '<ul class="dropdown-menu" role="menu">',
+                    '<li class="selectItem" data-state="live"><span><i class="icon icon-ok"></i> live</span></li>',
+                    '<li class="selectItem" data-state="draft"><span><i class="icon icon-edit"></i> draft</span></li>',
+                    '<li class="selectItem" data-state="private"><span><i class="icon icon-lock"></i> private</span></li>',
+                    '</ul>',
+                    '</div>'
+                ];
+
+            return strArr.join(""); 
+        }
+
+        function actionsCell(items){
+            var btns = '';
+                
+            for(var i=0, l=items.length; i<l; i++) {
+
+                    var icon = '';
+
+                switch(items[i].text.toLowerCase()){
+                    case 'edit': 
+                        icon = '<i class="icon icon-edit"></i>';
+                        break;
+                    case 'clone': 
+                        icon = '<i class="icon icon-copy"></i>';
+                        break;
+                    case 'delete': 
+                        icon = '<i class="icon icon-trash"></i>';
+                        break;
+                }
+
+                btns += '<button data-href="'+ items[i].url + '" class="btn '+ items[i].type  +'" title="'+ items[i].text +'">' + icon + '</button>';
+            }
+           return btns;
+        }
+
+        function setPageStatus(e){
+            
+            e.stopPropagation();
+
+            var pageId = $(this).closest('[data-pageid]').data('pageid'),
+                status = $(this).data('state'),
+                errorMsg = "I'm sorry Dave, I can't let you change the status right now.",
+                curStatus = $(this).closest('.select').find('.dropdown-toggle'),
+                menu = $(this).closest('.dropdown'),
+                valObj = {'live':'icon-ok','draft':'icon-edit','private':'icon-lock'};
+            
+
+            if (!confirm("Are you sure you want to change the status to " + status + "?")) {
+                menu.removeClass('open');
+                return; //abort!
+            }
+
+            $.post("/elements/page/setpagestatusfromlist", { "pageId" : pageId, "status" : status })
+            .done(function(data) {
+                if(data[0]) {
+                    curStatus.html('<i class="icon '+ valObj[status] + '"></i>');
+                } else {
+                	alert(errorMsg);
+                }    
+            menu.removeClass('open');
+            }).fail(function(){
+                alert(errorMsg);
+                menu.removeClass('open');
+            });
+    
+            return false;
+        }
+
+        function getNewPos(){
+
+            var listArr = [];
+
+            $(".row").each(function(i, val){
+                var newArr = $.makeArray($(this));
+                (i == 0) ? listArr = newArr :  $.merge(listArr, newArr);
+            });
+
+            return $.map(listArr, function(n, i){
+                return $(n).data("pageid");
+            });
+
+        }
+    </script>

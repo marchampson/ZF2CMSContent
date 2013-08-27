@@ -1,0 +1,249 @@
+$darkGrey : #333333;
+$lightGrey : #e5e5e5;
+$white : #FFFFFF;
+$blue : #08c;
+
+//Mixin example remember keywords
+
+@mixin border-radius($radius: 5px) {
+    -mox-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+.clearfix {
+    zoom:1;
+    &:before, &:after {
+        content: "\0020";
+        display: block;
+        height: 0;
+        overflow: hidden;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+.box{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.left{float:left;}
+.right{float:right;}
+.show{display:block;}
+.hide{display:none;}
+.minH{
+    min-height:200px;
+}
+
+h1, h2, h3, h4{
+    font-weight:normal;
+    text-transform: uppercase;
+}
+
+h1 {
+    color: $darkGrey;
+}
+h2 { 
+    color: lighten($darkGrey, 20%);
+}
+h3 {
+    color: lighten($darkGrey, 30%);
+}
+h4 {
+    color: lighten($darkGrey, 40%);
+}
+
+ul{
+    list-style: none;
+}
+
+body{
+
+    padding: 60px 0;
+
+    .container{
+
+        .header{
+           
+        }
+
+        .mainContent{
+
+            margin-top: 0px;
+
+            @media (min-width: 1200px) {
+                margin-top: 70px;
+            }
+
+            @media (min-width: 980px) and (max-width: 1199px) {
+                margin-top: 70px;
+            }
+
+            @media (min-width: 768px) and (max-width: 979px) {
+                margin-top: 0px;
+            }
+
+            @media (max-width: 767px) {
+                margin-top: 0px;
+                .wrapper{
+                    .formNavigation{
+                        position:relative !important;
+                    }
+                }
+
+            }
+
+            position:relative;
+            @extend .clearfix;
+
+            overflow: hidden;
+            
+            .wrapper{
+                position:relative;
+                @extend .clearfix;
+
+                //FORM STYLES
+                    
+                .formNavigation{
+                    @extend .box;
+                    position: fixed;
+                    padding-left:0;
+                    margin-bottom:20px;
+
+                    ul{
+
+                        //width: 228px;
+                        //margin: 30px 0 0;
+                        padding: 0;
+                        background-color: #fff;
+                        @include border-radius(6px);
+                        -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+                        -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+                        box-shadow: 0 1px 4px rgba(0,0,0,.065);
+
+                        li{
+
+                            a {
+                                display: block;
+                                width: 190px 9;
+                                margin: 0 0 -1px;
+                                padding: 8px 14px;
+                                border: 1px solid #e5e5e5;
+
+                                .icon-chevron-right {
+                                    float: right;
+                                    margin-top: 2px;
+                                    margin-right: -6px;
+                                    opacity: .25;
+                                }
+                            }
+
+                            &:first-child{
+                                a {
+                                   @include border-radius(6px);
+                                }
+                            }
+
+                            &.active, &.active:hover{
+                                
+                                a {
+                                    position: relative;
+                                    z-index: 2;
+                                    padding: 9px 15px;
+                                    border: 0;
+                                    text-shadow: 0 1px 0 rgba(0,0,0,.15);
+                                    -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+                                    -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+                                    box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+
+                                    .icon-chevron-right {
+                                        background-image: url(../img/glyphicons-halflings-white.png);
+                                        opacity: 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .formContainer{
+                    form{
+                        margin: 0 0 210px 0;
+                        
+                        fieldset{
+                            width:100%;
+                            background:$white;
+                            @extend .box;
+                            padding:20px;
+                            margin-bottom: 20px;
+                            @include border-radius(10px);
+
+                            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+                            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+                            box-shadow: 0 1px 2px rgba(0,0,0,.15);
+
+                            h2{
+                                margin-top:0;
+                                margin-bottom:10px;
+                                padding-bottom: 10px;
+                                border-bottom: solid 1px $lightGrey;
+                            }
+
+                            .form-actions{
+                                @extend .hide;
+                            }
+
+                            input, select, textarea{
+                                @extend .box;
+                                height:30px;
+                                width:66%;
+    
+                                &[type="checkbox"]{
+                                    width:auto;
+                                }
+                            }
+
+                            textarea{
+                                height:100px;
+                            }
+
+                            label{
+                                color: lighten($darkGrey, 30%);
+                                input{
+                                    width:auto;
+                                    margin:0;
+                                }
+                            }
+
+                            table{
+                                width:98%;
+                            }
+                        }
+
+                        .form-actions{
+                            @extend .box;
+                            position: fixed;
+                            left:0;
+                            bottom:0;
+                            width: 100%;
+                            margin:0;
+                        }
+                    }
+                }
+
+                //FORM STYLES END
+            }
+        }
+
+        .footer{
+            
+        }
+
+    }
+
+}
